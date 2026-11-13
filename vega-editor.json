@@ -1,0 +1,1819 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "World Bank Economic Growth Explorer",
+    "subtitle": "Interactive dashboard with filters, linked exploration, zooming and event annotations"
+  },
+  "width": 800,
+  "data": {
+    "values": [
+      {
+        "country": "Brazil",
+        "country_code": "BRA",
+        "year": 2000,
+        "gdp_per_capita": 8803.15257954338,
+        "gdp_growth": 4.38794944267383
+      },
+      {
+        "country": "Brazil",
+        "country_code": "BRA",
+        "year": 2001,
+        "gdp_per_capita": 8804.32963670568,
+        "gdp_growth": 1.38989640325893
+      },
+      {
+        "country": "Brazil",
+        "country_code": "BRA",
+        "year": 2002,
+        "gdp_per_capita": 8954.83709571,
+        "gdp_growth": 3.05346185795257
+      },
+      {
+        "country": "Brazil",
+        "country_code": "BRA",
+        "year": 2003,
+        "gdp_per_capita": 8943.8285809448,
+        "gdp_growth": 1.14082899810009
+      },
+      {
+        "country": "Brazil",
+        "country_code": "BRA",
+        "year": 2004,
+        "gdp_per_capita": 9346.03944474749,
+        "gdp_growth": 5.75996463871775
+      },
+      {
+        "country": "Brazil",
+        "country_code": "BRA",
+        "year": 2005,
+        "gdp_per_capita": 9535.41857421236,
+        "gdp_growth": 3.20213137990235
+      },
+      {
+        "country": "Brazil",
+        "country_code": "BRA",
+        "year": 2006,
+        "gdp_per_capita": 9805.72466244493,
+        "gdp_growth": 3.96198872184988
+      },
+      {
+        "country": "Brazil",
+        "country_code": "BRA",
+        "year": 2007,
+        "gdp_per_capita": 10293.5302331844,
+        "gdp_growth": 6.0698706077184
+      },
+      {
+        "country": "Brazil",
+        "country_code": "BRA",
+        "year": 2008,
+        "gdp_per_capita": 10710.8722205603,
+        "gdp_growth": 5.09419544732717
+      },
+      {
+        "country": "Brazil",
+        "country_code": "BRA",
+        "year": 2009,
+        "gdp_per_capita": 10594.9867563283,
+        "gdp_growth": -0.125811999414864
+      },
+      {
+        "country": "Brazil",
+        "country_code": "BRA",
+        "year": 2010,
+        "gdp_per_capita": 11286.2429009115,
+        "gdp_growth": 7.52822583005563
+      },
+      {
+        "country": "Brazil",
+        "country_code": "BRA",
+        "year": 2011,
+        "gdp_per_capita": 11627.8102384971,
+        "gdp_growth": 3.97442540583816
+      },
+      {
+        "country": "Brazil",
+        "country_code": "BRA",
+        "year": 2012,
+        "gdp_per_capita": 11745.7761620453,
+        "gdp_growth": 1.92115031836305
+      },
+      {
+        "country": "Brazil",
+        "country_code": "BRA",
+        "year": 2013,
+        "gdp_per_capita": 11993.4839252147,
+        "gdp_growth": 3.00484630505706
+      },
+      {
+        "country": "Brazil",
+        "country_code": "BRA",
+        "year": 2014,
+        "gdp_per_capita": 11951.2089158757,
+        "gdp_growth": 0.503955740242247
+      },
+      {
+        "country": "Brazil",
+        "country_code": "BRA",
+        "year": 2015,
+        "gdp_per_capita": 11431.1550399028,
+        "gdp_growth": -3.54576339269425
+      },
+      {
+        "country": "Brazil",
+        "country_code": "BRA",
+        "year": 2016,
+        "gdp_per_capita": 10965.9743678207,
+        "gdp_growth": -3.27591690782192
+      },
+      {
+        "country": "Brazil",
+        "country_code": "BRA",
+        "year": 2017,
+        "gdp_per_capita": 11021.7185805472,
+        "gdp_growth": 1.32286905485741
+      },
+      {
+        "country": "Brazil",
+        "country_code": "BRA",
+        "year": 2018,
+        "gdp_per_capita": 11130.718972217,
+        "gdp_growth": 1.78366676136979
+      },
+      {
+        "country": "Brazil",
+        "country_code": "BRA",
+        "year": 2019,
+        "gdp_per_capita": 11203.2749473819,
+        "gdp_growth": 1.41115298507022
+      },
+      {
+        "country": "Brazil",
+        "country_code": "BRA",
+        "year": 2020,
+        "gdp_per_capita": 10672.1777388753,
+        "gdp_growth": -4.05904827267295
+      },
+      {
+        "country": "China",
+        "country_code": "CHN",
+        "year": 2000,
+        "gdp_per_capita": 1767.8596270477,
+        "gdp_growth": 8.49009340575191
+      },
+      {
+        "country": "China",
+        "country_code": "CHN",
+        "year": 2001,
+        "gdp_per_capita": 1901.36228398872,
+        "gdp_growth": 8.3357334781433
+      },
+      {
+        "country": "China",
+        "country_code": "CHN",
+        "year": 2002,
+        "gdp_per_capita": 2061.16950185066,
+        "gdp_growth": 9.13363078993316
+      },
+      {
+        "country": "China",
+        "country_code": "CHN",
+        "year": 2003,
+        "gdp_per_capita": 2253.98730500113,
+        "gdp_growth": 10.038030481108
+      },
+      {
+        "country": "China",
+        "country_code": "CHN",
+        "year": 2004,
+        "gdp_per_capita": 2467.2496385434,
+        "gdp_growth": 10.1136213780461
+      },
+      {
+        "country": "China",
+        "country_code": "CHN",
+        "year": 2005,
+        "gdp_per_capita": 2732.26617752417,
+        "gdp_growth": 11.3945918097286
+      },
+      {
+        "country": "China",
+        "country_code": "CHN",
+        "year": 2006,
+        "gdp_per_capita": 3062.68745142061,
+        "gdp_growth": 12.7209556651735
+      },
+      {
+        "country": "China",
+        "country_code": "CHN",
+        "year": 2007,
+        "gdp_per_capita": 3480.31001479197,
+        "gdp_growth": 14.2308609330803
+      },
+      {
+        "country": "China",
+        "country_code": "CHN",
+        "year": 2008,
+        "gdp_per_capita": 3796.67994353838,
+        "gdp_growth": 9.65067891955702
+      },
+      {
+        "country": "China",
+        "country_code": "CHN",
+        "year": 2009,
+        "gdp_per_capita": 4132.91193274645,
+        "gdp_growth": 9.39872563237978
+      },
+      {
+        "country": "China",
+        "country_code": "CHN",
+        "year": 2010,
+        "gdp_per_capita": 4550.45310775599,
+        "gdp_growth": 10.6358710646812
+      },
+      {
+        "country": "China",
+        "country_code": "CHN",
+        "year": 2011,
+        "gdp_per_capita": 4961.23044691926,
+        "gdp_growth": 9.55083217886229
+      },
+      {
+        "country": "China",
+        "country_code": "CHN",
+        "year": 2012,
+        "gdp_per_capita": 5325.35841728771,
+        "gdp_growth": 7.86373644866194
+      },
+      {
+        "country": "China",
+        "country_code": "CHN",
+        "year": 2013,
+        "gdp_per_capita": 5710.66990450817,
+        "gdp_growth": 7.766150097539
+      },
+      {
+        "country": "China",
+        "country_code": "CHN",
+        "year": 2014,
+        "gdp_per_capita": 6103.7484016903,
+        "gdp_growth": 7.42576365645755
+      },
+      {
+        "country": "China",
+        "country_code": "CHN",
+        "year": 2015,
+        "gdp_per_capita": 6500.4183226673,
+        "gdp_growth": 7.04132887865481
+      },
+      {
+        "country": "China",
+        "country_code": "CHN",
+        "year": 2016,
+        "gdp_per_capita": 6908.10913380599,
+        "gdp_growth": 6.84876220503246
+      },
+      {
+        "country": "China",
+        "country_code": "CHN",
+        "year": 2017,
+        "gdp_per_capita": 7346.83656446072,
+        "gdp_growth": 6.94720079327288
+      },
+      {
+        "country": "China",
+        "country_code": "CHN",
+        "year": 2018,
+        "gdp_per_capita": 7807.05780879625,
+        "gdp_growth": 6.74977383247717
+      },
+      {
+        "country": "China",
+        "country_code": "CHN",
+        "year": 2019,
+        "gdp_per_capita": 8242.05464327714,
+        "gdp_growth": 5.94971423273162
+      },
+      {
+        "country": "China",
+        "country_code": "CHN",
+        "year": 2020,
+        "gdp_per_capita": 8405.18047349612,
+        "gdp_growth": 2.29999999995441
+      },
+      {
+        "country": "France",
+        "country_code": "FRA",
+        "year": 2000,
+        "gdp_per_capita": 38309.4427389727,
+        "gdp_growth": 3.92366922704063
+      },
+      {
+        "country": "France",
+        "country_code": "FRA",
+        "year": 2001,
+        "gdp_per_capita": 38786.0845424989,
+        "gdp_growth": 1.98372141863292
+      },
+      {
+        "country": "France",
+        "country_code": "FRA",
+        "year": 2002,
+        "gdp_per_capita": 38942.2818475732,
+        "gdp_growth": 1.13553148214601
+      },
+      {
+        "country": "France",
+        "country_code": "FRA",
+        "year": 2003,
+        "gdp_per_capita": 38985.5396115394,
+        "gdp_growth": 0.823160756684118
+      },
+      {
+        "country": "France",
+        "country_code": "FRA",
+        "year": 2004,
+        "gdp_per_capita": 39794.6316978576,
+        "gdp_growth": 2.82975292869891
+      },
+      {
+        "country": "France",
+        "country_code": "FRA",
+        "year": 2005,
+        "gdp_per_capita": 40152.6896828065,
+        "gdp_growth": 1.66321998030079
+      },
+      {
+        "country": "France",
+        "country_code": "FRA",
+        "year": 2006,
+        "gdp_per_capita": 40850.3587403699,
+        "gdp_growth": 2.44932360111885
+      },
+      {
+        "country": "France",
+        "country_code": "FRA",
+        "year": 2007,
+        "gdp_per_capita": 41582.7984058046,
+        "gdp_growth": 2.42473624337305
+      },
+      {
+        "country": "France",
+        "country_code": "FRA",
+        "year": 2008,
+        "gdp_per_capita": 41456.4866399732,
+        "gdp_growth": 0.254945960124005
+      },
+      {
+        "country": "France",
+        "country_code": "FRA",
+        "year": 2009,
+        "gdp_per_capita": 40058.6828558223,
+        "gdp_growth": -2.87331382849631
+      },
+      {
+        "country": "France",
+        "country_code": "FRA",
+        "year": 2010,
+        "gdp_per_capita": 40638.3352541414,
+        "gdp_growth": 1.94943762312663
+      },
+      {
+        "country": "France",
+        "country_code": "FRA",
+        "year": 2011,
+        "gdp_per_capita": 41329.0296688845,
+        "gdp_growth": 2.19270063266654
+      },
+      {
+        "country": "France",
+        "country_code": "FRA",
+        "year": 2012,
+        "gdp_per_capita": 41258.2715887455,
+        "gdp_growth": 0.313134751077172
+      },
+      {
+        "country": "France",
+        "country_code": "FRA",
+        "year": 2013,
+        "gdp_per_capita": 41282.9920513995,
+        "gdp_growth": 0.576326674771792
+      },
+      {
+        "country": "France",
+        "country_code": "FRA",
+        "year": 2014,
+        "gdp_per_capita": 41480.7696075124,
+        "gdp_growth": 0.956183052371557
+      },
+      {
+        "country": "France",
+        "country_code": "FRA",
+        "year": 2015,
+        "gdp_per_capita": 41793.5447118859,
+        "gdp_growth": 1.1129123405747
+      },
+      {
+        "country": "France",
+        "country_code": "FRA",
+        "year": 2016,
+        "gdp_per_capita": 42140.0368796576,
+        "gdp_growth": 1.09546440372048
+      },
+      {
+        "country": "France",
+        "country_code": "FRA",
+        "year": 2017,
+        "gdp_per_capita": 42980.7299611129,
+        "gdp_growth": 2.29141999417021
+      },
+      {
+        "country": "France",
+        "country_code": "FRA",
+        "year": 2018,
+        "gdp_per_capita": 43631.4042937121,
+        "gdp_growth": 1.79286392711333
+      },
+      {
+        "country": "France",
+        "country_code": "FRA",
+        "year": 2019,
+        "gdp_per_capita": 44192.8146200556,
+        "gdp_growth": 1.50859403033795
+      },
+      {
+        "country": "France",
+        "country_code": "FRA",
+        "year": 2020,
+        "gdp_per_capita": 40520.6517970746,
+        "gdp_growth": -8.11490709749263
+      },
+      {
+        "country": "Germany",
+        "country_code": "DEU",
+        "year": 2000,
+        "gdp_per_capita": 37934.4517828233,
+        "gdp_growth": 2.91250296366708
+      },
+      {
+        "country": "Germany",
+        "country_code": "DEU",
+        "year": 2001,
+        "gdp_per_capita": 38507.4737778722,
+        "gdp_growth": 1.68146848097079
+      },
+      {
+        "country": "Germany",
+        "country_code": "DEU",
+        "year": 2002,
+        "gdp_per_capita": 38366.6795456265,
+        "gdp_growth": -0.197973834771361
+      },
+      {
+        "country": "Germany",
+        "country_code": "DEU",
+        "year": 2003,
+        "gdp_per_capita": 38076.9815087939,
+        "gdp_growth": -0.700116686114356
+      },
+      {
+        "country": "Germany",
+        "country_code": "DEU",
+        "year": 2004,
+        "gdp_per_capita": 38532.7840538701,
+        "gdp_growth": 1.17508813160987
+      },
+      {
+        "country": "Germany",
+        "country_code": "DEU",
+        "year": 2005,
+        "gdp_per_capita": 38836.7757824923,
+        "gdp_growth": 0.731707163554191
+      },
+      {
+        "country": "Germany",
+        "country_code": "DEU",
+        "year": 2006,
+        "gdp_per_capita": 40364.4632067864,
+        "gdp_growth": 3.816441912988
+      },
+      {
+        "country": "Germany",
+        "country_code": "DEU",
+        "year": 2007,
+        "gdp_per_capita": 41621.5118402428,
+        "gdp_growth": 2.97645513131597
+      },
+      {
+        "country": "Germany",
+        "country_code": "DEU",
+        "year": 2008,
+        "gdp_per_capita": 42101.0040357854,
+        "gdp_growth": 0.95987913356484
+      },
+      {
+        "country": "Germany",
+        "country_code": "DEU",
+        "year": 2009,
+        "gdp_per_capita": 39804.5722815573,
+        "gdp_growth": -5.69383633640285
+      },
+      {
+        "country": "Germany",
+        "country_code": "DEU",
+        "year": 2010,
+        "gdp_per_capita": 41531.9341978689,
+        "gdp_growth": 4.17988249873657
+      },
+      {
+        "country": "Germany",
+        "country_code": "DEU",
+        "year": 2011,
+        "gdp_per_capita": 43969.7074500187,
+        "gdp_growth": 3.92519270463411
+      },
+      {
+        "country": "Germany",
+        "country_code": "DEU",
+        "year": 2012,
+        "gdp_per_capita": 44070.9085651782,
+        "gdp_growth": 0.418497594217598
+      },
+      {
+        "country": "Germany",
+        "country_code": "DEU",
+        "year": 2013,
+        "gdp_per_capita": 44143.1278111535,
+        "gdp_growth": 0.437591303144671
+      },
+      {
+        "country": "Germany",
+        "country_code": "DEU",
+        "year": 2014,
+        "gdp_per_capita": 44930.7921305433,
+        "gdp_growth": 2.20954343134872
+      },
+      {
+        "country": "Germany",
+        "country_code": "DEU",
+        "year": 2015,
+        "gdp_per_capita": 45208.062454025,
+        "gdp_growth": 1.49193152760772
+      },
+      {
+        "country": "Germany",
+        "country_code": "DEU",
+        "year": 2016,
+        "gdp_per_capita": 45844.6381197286,
+        "gdp_growth": 2.22999986782015
+      },
+      {
+        "country": "Germany",
+        "country_code": "DEU",
+        "year": 2017,
+        "gdp_per_capita": 46862.0419736415,
+        "gdp_growth": 2.60197600462604
+      },
+      {
+        "country": "Germany",
+        "country_code": "DEU",
+        "year": 2018,
+        "gdp_per_capita": 47313.845816417,
+        "gdp_growth": 1.26799523225071
+      },
+      {
+        "country": "Germany",
+        "country_code": "DEU",
+        "year": 2019,
+        "gdp_per_capita": 47469.4770843065,
+        "gdp_growth": 0.555450887945668
+      },
+      {
+        "country": "Germany",
+        "country_code": "DEU",
+        "year": 2020,
+        "gdp_per_capita": 45065.0824555703,
+        "gdp_growth": -4.89654544989574
+      },
+      {
+        "country": "India",
+        "country_code": "IND",
+        "year": 2000,
+        "gdp_per_capita": 826.592493894691,
+        "gdp_growth": 3.84099115681285
+      },
+      {
+        "country": "India",
+        "country_code": "IND",
+        "year": 2001,
+        "gdp_per_capita": 851.616562164671,
+        "gdp_growth": 4.82396626390641
+      },
+      {
+        "country": "India",
+        "country_code": "IND",
+        "year": 2002,
+        "gdp_per_capita": 869.201389011861,
+        "gdp_growth": 3.8039753213758
+      },
+      {
+        "country": "India",
+        "country_code": "IND",
+        "year": 2003,
+        "gdp_per_capita": 922.167958383566,
+        "gdp_growth": 7.86038147553259
+      },
+      {
+        "country": "India",
+        "country_code": "IND",
+        "year": 2004,
+        "gdp_per_capita": 979.283839030941,
+        "gdp_growth": 7.92293661286503
+      },
+      {
+        "country": "India",
+        "country_code": "IND",
+        "year": 2005,
+        "gdp_per_capita": 1040.31231563816,
+        "gdp_growth": 7.92343062149763
+      },
+      {
+        "country": "India",
+        "country_code": "IND",
+        "year": 2006,
+        "gdp_per_capita": 1106.9264701603,
+        "gdp_growth": 8.06073257303272
+      },
+      {
+        "country": "India",
+        "country_code": "IND",
+        "year": 2007,
+        "gdp_per_capita": 1173.87531078489,
+        "gdp_growth": 7.66081506504928
+      },
+      {
+        "country": "India",
+        "country_code": "IND",
+        "year": 2008,
+        "gdp_per_capita": 1192.51173531333,
+        "gdp_growth": 3.08669805953289
+      },
+      {
+        "country": "India",
+        "country_code": "IND",
+        "year": 2009,
+        "gdp_per_capita": 1268.24920826465,
+        "gdp_growth": 7.86188883303498
+      },
+      {
+        "country": "India",
+        "country_code": "IND",
+        "year": 2010,
+        "gdp_per_capita": 1357.5637268318,
+        "gdp_growth": 8.49758470158106
+      },
+      {
+        "country": "India",
+        "country_code": "IND",
+        "year": 2011,
+        "gdp_per_capita": 1410.42679733619,
+        "gdp_growth": 5.2413150014405
+      },
+      {
+        "country": "India",
+        "country_code": "IND",
+        "year": 2012,
+        "gdp_per_capita": 1469.180566354,
+        "gdp_growth": 5.45638875293319
+      },
+      {
+        "country": "India",
+        "country_code": "IND",
+        "year": 2013,
+        "gdp_per_capita": 1544.62408306965,
+        "gdp_growth": 6.38610640092348
+      },
+      {
+        "country": "India",
+        "country_code": "IND",
+        "year": 2014,
+        "gdp_per_capita": 1640.18502476571,
+        "gdp_growth": 7.41022760516408
+      },
+      {
+        "country": "India",
+        "country_code": "IND",
+        "year": 2015,
+        "gdp_per_capita": 1751.6644491064,
+        "gdp_growth": 7.99625378566586
+      },
+      {
+        "country": "India",
+        "country_code": "IND",
+        "year": 2016,
+        "gdp_per_capita": 1875.72131188437,
+        "gdp_growth": 8.25630550178155
+      },
+      {
+        "country": "India",
+        "country_code": "IND",
+        "year": 2017,
+        "gdp_per_capita": 1981.99557637737,
+        "gdp_growth": 6.79538341898569
+      },
+      {
+        "country": "India",
+        "country_code": "IND",
+        "year": 2018,
+        "gdp_per_capita": 2089.67893111751,
+        "gdp_growth": 6.53298901141864
+      },
+      {
+        "country": "India",
+        "country_code": "IND",
+        "year": 2019,
+        "gdp_per_capita": 2152.21600868262,
+        "gdp_growth": 4.04155418650819
+      },
+      {
+        "country": "India",
+        "country_code": "IND",
+        "year": 2020,
+        "gdp_per_capita": 1961.29871122172,
+        "gdp_growth": -7.9646104111382
+      },
+      {
+        "country": "Japan",
+        "country_code": "JPN",
+        "year": 2000,
+        "gdp_per_capita": 42169.7332837685,
+        "gdp_growth": 2.77963282512113
+      },
+      {
+        "country": "Japan",
+        "country_code": "JPN",
+        "year": 2001,
+        "gdp_per_capita": 42239.1849263634,
+        "gdp_growth": 0.406335903187042
+      },
+      {
+        "country": "Japan",
+        "country_code": "JPN",
+        "year": 2002,
+        "gdp_per_capita": 42190.8048728416,
+        "gdp_growth": 0.117992776889338
+      },
+      {
+        "country": "Japan",
+        "country_code": "JPN",
+        "year": 2003,
+        "gdp_per_capita": 42744.0112850452,
+        "gdp_growth": 1.52822014817859
+      },
+      {
+        "country": "Japan",
+        "country_code": "JPN",
+        "year": 2004,
+        "gdp_per_capita": 43671.6799739123,
+        "gdp_growth": 2.20468788221162
+      },
+      {
+        "country": "Japan",
+        "country_code": "JPN",
+        "year": 2005,
+        "gdp_per_capita": 44393.6263842663,
+        "gdp_growth": 1.662670405285
+      },
+      {
+        "country": "Japan",
+        "country_code": "JPN",
+        "year": 2006,
+        "gdp_per_capita": 44995.4944919713,
+        "gdp_growth": 1.42000655604306
+      },
+      {
+        "country": "Japan",
+        "country_code": "JPN",
+        "year": 2007,
+        "gdp_per_capita": 45687.2738147647,
+        "gdp_growth": 1.65418388105051
+      },
+      {
+        "country": "Japan",
+        "country_code": "JPN",
+        "year": 2008,
+        "gdp_per_capita": 45165.7879187542,
+        "gdp_growth": -1.09354060044625
+      },
+      {
+        "country": "Japan",
+        "country_code": "JPN",
+        "year": 2009,
+        "gdp_per_capita": 42724.7603699749,
+        "gdp_growth": -5.41641279666185
+      },
+      {
+        "country": "Japan",
+        "country_code": "JPN",
+        "year": 2010,
+        "gdp_per_capita": 44507.6763859172,
+        "gdp_growth": 4.19173925854747
+      },
+      {
+        "country": "Japan",
+        "country_code": "JPN",
+        "year": 2011,
+        "gdp_per_capita": 44538.7261906776,
+        "gdp_growth": -0.115421339757418
+      },
+      {
+        "country": "Japan",
+        "country_code": "JPN",
+        "year": 2012,
+        "gdp_per_capita": 45276.8743353985,
+        "gdp_growth": 1.49508958593034
+      },
+      {
+        "country": "Japan",
+        "country_code": "JPN",
+        "year": 2013,
+        "gdp_per_capita": 46249.2095886628,
+        "gdp_growth": 2.00026784118108
+      },
+      {
+        "country": "Japan",
+        "country_code": "JPN",
+        "year": 2014,
+        "gdp_per_capita": 46484.1552669134,
+        "gdp_growth": 0.374719476350435
+      },
+      {
+        "country": "Japan",
+        "country_code": "JPN",
+        "year": 2015,
+        "gdp_per_capita": 47102.5808781498,
+        "gdp_growth": 1.2229210410615
+      },
+      {
+        "country": "Japan",
+        "country_code": "JPN",
+        "year": 2016,
+        "gdp_per_capita": 47403.0469116934,
+        "gdp_growth": 0.521944455486121
+      },
+      {
+        "country": "Japan",
+        "country_code": "JPN",
+        "year": 2017,
+        "gdp_per_capita": 48510.6094087782,
+        "gdp_growth": 2.16829073737318
+      },
+      {
+        "country": "Japan",
+        "country_code": "JPN",
+        "year": 2018,
+        "gdp_per_capita": 48766.1336629216,
+        "gdp_growth": 0.323207337906922
+      },
+      {
+        "country": "Japan",
+        "country_code": "JPN",
+        "year": 2019,
+        "gdp_per_capita": 49000.2560402533,
+        "gdp_growth": 0.270308582079323
+      },
+      {
+        "country": "Nigeria",
+        "country_code": "NGA",
+        "year": 2000,
+        "gdp_per_capita": 1376.41843240805,
+        "gdp_growth": 5.01593475720539
+      },
+      {
+        "country": "Nigeria",
+        "country_code": "NGA",
+        "year": 2001,
+        "gdp_per_capita": 1421.71045474785,
+        "gdp_growth": 5.91768465163287
+      },
+      {
+        "country": "Nigeria",
+        "country_code": "NGA",
+        "year": 2002,
+        "gdp_per_capita": 1598.81958199004,
+        "gdp_growth": 15.3291557381864
+      },
+      {
+        "country": "Nigeria",
+        "country_code": "NGA",
+        "year": 2003,
+        "gdp_per_capita": 1673.28918129964,
+        "gdp_growth": 7.34719497034284
+      },
+      {
+        "country": "Nigeria",
+        "country_code": "NGA",
+        "year": 2004,
+        "gdp_per_capita": 1781.87901753455,
+        "gdp_growth": 9.25055822849694
+      },
+      {
+        "country": "Nigeria",
+        "country_code": "NGA",
+        "year": 2005,
+        "gdp_per_capita": 1848.19385361004,
+        "gdp_growth": 6.43851652509105
+      },
+      {
+        "country": "Nigeria",
+        "country_code": "NGA",
+        "year": 2006,
+        "gdp_per_capita": 1909.66880798911,
+        "gdp_growth": 6.05942803125548
+      },
+      {
+        "country": "Nigeria",
+        "country_code": "NGA",
+        "year": 2007,
+        "gdp_per_capita": 1982.65773053553,
+        "gdp_growth": 6.59113036073542
+      },
+      {
+        "country": "Nigeria",
+        "country_code": "NGA",
+        "year": 2008,
+        "gdp_per_capita": 2061.4190169169,
+        "gdp_growth": 6.764472777848
+      },
+      {
+        "country": "Nigeria",
+        "country_code": "NGA",
+        "year": 2009,
+        "gdp_per_capita": 2168.57063759612,
+        "gdp_growth": 8.03692510189684
+      },
+      {
+        "country": "Nigeria",
+        "country_code": "NGA",
+        "year": 2010,
+        "gdp_per_capita": 2280.43733738126,
+        "gdp_growth": 8.00565591528178
+      },
+      {
+        "country": "Nigeria",
+        "country_code": "NGA",
+        "year": 2011,
+        "gdp_per_capita": 2338.02572838676,
+        "gdp_growth": 5.30792420366642
+      },
+      {
+        "country": "Nigeria",
+        "country_code": "NGA",
+        "year": 2012,
+        "gdp_per_capita": 2372.46136906097,
+        "gdp_growth": 4.23006117510553
+      },
+      {
+        "country": "Nigeria",
+        "country_code": "NGA",
+        "year": 2013,
+        "gdp_per_capita": 2463.88945089184,
+        "gdp_growth": 6.67133539288378
+      },
+      {
+        "country": "Nigeria",
+        "country_code": "NGA",
+        "year": 2014,
+        "gdp_per_capita": 2550.46994865456,
+        "gdp_growth": 6.30971865572383
+      },
+      {
+        "country": "Nigeria",
+        "country_code": "NGA",
+        "year": 2015,
+        "gdp_per_capita": 2549.72311225363,
+        "gdp_growth": 2.65269329541835
+      },
+      {
+        "country": "Nigeria",
+        "country_code": "NGA",
+        "year": 2016,
+        "gdp_per_capita": 2443.44074966101,
+        "gdp_growth": -1.61686894991816
+      },
+      {
+        "country": "Nigeria",
+        "country_code": "NGA",
+        "year": 2017,
+        "gdp_per_capita": 2399.73205097463,
+        "gdp_growth": 0.805886619542704
+      },
+      {
+        "country": "Nigeria",
+        "country_code": "NGA",
+        "year": 2018,
+        "gdp_per_capita": 2383.42047930392,
+        "gdp_growth": 1.92275734157302
+      },
+      {
+        "country": "Nigeria",
+        "country_code": "NGA",
+        "year": 2019,
+        "gdp_per_capita": 2374.36938277949,
+        "gdp_growth": 2.2084292771582
+      },
+      {
+        "country": "Nigeria",
+        "country_code": "NGA",
+        "year": 2020,
+        "gdp_per_capita": 2273.21856061168,
+        "gdp_growth": -1.79425308233591
+      },
+      {
+        "country": "South Africa",
+        "country_code": "ZAF",
+        "year": 2000,
+        "gdp_per_capita": 5937.62542588867,
+        "gdp_growth": 4.2000034755179
+      },
+      {
+        "country": "South Africa",
+        "country_code": "ZAF",
+        "year": 2001,
+        "gdp_per_capita": 6017.17810993889,
+        "gdp_growth": 2.69999456713745
+      },
+      {
+        "country": "South Africa",
+        "country_code": "ZAF",
+        "year": 2002,
+        "gdp_per_capita": 6161.46631380485,
+        "gdp_growth": 3.70038235175593
+      },
+      {
+        "country": "South Africa",
+        "country_code": "ZAF",
+        "year": 2003,
+        "gdp_per_capita": 6266.0148009638,
+        "gdp_growth": 2.9490791374903
+      },
+      {
+        "country": "South Africa",
+        "country_code": "ZAF",
+        "year": 2004,
+        "gdp_per_capita": 6472.10703408701,
+        "gdp_growth": 4.55455274472709
+      },
+      {
+        "country": "South Africa",
+        "country_code": "ZAF",
+        "year": 2005,
+        "gdp_per_capita": 6729.82830935219,
+        "gdp_growth": 5.2770563116366
+      },
+      {
+        "country": "South Africa",
+        "country_code": "ZAF",
+        "year": 2006,
+        "gdp_per_capita": 7017.71418030869,
+        "gdp_growth": 5.60379765712011
+      },
+      {
+        "country": "South Africa",
+        "country_code": "ZAF",
+        "year": 2007,
+        "gdp_per_capita": 7299.01899707006,
+        "gdp_growth": 5.36047589053663
+      },
+      {
+        "country": "South Africa",
+        "country_code": "ZAF",
+        "year": 2008,
+        "gdp_per_capita": 7432.11661145623,
+        "gdp_growth": 3.19104674115678
+      },
+      {
+        "country": "South Africa",
+        "country_code": "ZAF",
+        "year": 2009,
+        "gdp_per_capita": 7216.67940700822,
+        "gdp_growth": -1.53808933379921
+      },
+      {
+        "country": "South Africa",
+        "country_code": "ZAF",
+        "year": 2010,
+        "gdp_per_capita": 7328.61519967084,
+        "gdp_growth": 3.03973081360169
+      },
+      {
+        "country": "South Africa",
+        "country_code": "ZAF",
+        "year": 2011,
+        "gdp_per_capita": 7454.77936818459,
+        "gdp_growth": 3.28416814231139
+      },
+      {
+        "country": "South Africa",
+        "country_code": "ZAF",
+        "year": 2012,
+        "gdp_per_capita": 7500.23214267026,
+        "gdp_growth": 2.21335480848441
+      },
+      {
+        "country": "South Africa",
+        "country_code": "ZAF",
+        "year": 2013,
+        "gdp_per_capita": 7564.29019640649,
+        "gdp_growth": 2.4852005003106
+      },
+      {
+        "country": "South Africa",
+        "country_code": "ZAF",
+        "year": 2014,
+        "gdp_per_capita": 7582.94813685785,
+        "gdp_growth": 1.84699160365716
+      },
+      {
+        "country": "South Africa",
+        "country_code": "ZAF",
+        "year": 2015,
+        "gdp_per_capita": 7556.78830594696,
+        "gdp_growth": 1.19373280124428
+      },
+      {
+        "country": "South Africa",
+        "country_code": "ZAF",
+        "year": 2016,
+        "gdp_per_capita": 7476.08960521975,
+        "gdp_growth": 0.399087929556359
+      },
+      {
+        "country": "South Africa",
+        "country_code": "ZAF",
+        "year": 2017,
+        "gdp_per_capita": 7475.16670104626,
+        "gdp_growth": 1.41451262585058
+      },
+      {
+        "country": "South Africa",
+        "country_code": "ZAF",
+        "year": 2018,
+        "gdp_per_capita": 7431.95638129973,
+        "gdp_growth": 0.787055570495099
+      },
+      {
+        "country": "South Africa",
+        "country_code": "ZAF",
+        "year": 2019,
+        "gdp_per_capita": 7345.96279427019,
+        "gdp_growth": 0.152583316664234
+      },
+      {
+        "country": "South Africa",
+        "country_code": "ZAF",
+        "year": 2020,
+        "gdp_per_capita": 6748.23435464928,
+        "gdp_growth": -6.95960445218964
+      },
+      {
+        "country": "United Kingdom",
+        "country_code": "GBR",
+        "year": 2000,
+        "gdp_per_capita": 35959.4860416429,
+        "gdp_growth": 3.506217425817
+      },
+      {
+        "country": "United Kingdom",
+        "country_code": "GBR",
+        "year": 2001,
+        "gdp_per_capita": 36799.3589745689,
+        "gdp_growth": 2.73033565127537
+      },
+      {
+        "country": "United Kingdom",
+        "country_code": "GBR",
+        "year": 2002,
+        "gdp_per_capita": 37442.2798978636,
+        "gdp_growth": 2.17874436788954
+      },
+      {
+        "country": "United Kingdom",
+        "country_code": "GBR",
+        "year": 2003,
+        "gdp_per_capita": 38506.3486614037,
+        "gdp_growth": 3.32188172525618
+      },
+      {
+        "country": "United Kingdom",
+        "country_code": "GBR",
+        "year": 2004,
+        "gdp_per_capita": 39163.2591869137,
+        "gdp_growth": 2.28627817511111
+      },
+      {
+        "country": "United Kingdom",
+        "country_code": "GBR",
+        "year": 2005,
+        "gdp_per_capita": 40044.905463895,
+        "gdp_growth": 2.95569174321572
+      },
+      {
+        "country": "United Kingdom",
+        "country_code": "GBR",
+        "year": 2006,
+        "gdp_per_capita": 40822.4647674612,
+        "gdp_growth": 2.69380036672888
+      },
+      {
+        "country": "United Kingdom",
+        "country_code": "GBR",
+        "year": 2007,
+        "gdp_per_capita": 41461.999246163,
+        "gdp_growth": 2.36057586087708
+      },
+      {
+        "country": "United Kingdom",
+        "country_code": "GBR",
+        "year": 2008,
+        "gdp_per_capita": 41022.2788596549,
+        "gdp_growth": -0.27878016061878
+      },
+      {
+        "country": "United Kingdom",
+        "country_code": "GBR",
+        "year": 2009,
+        "gdp_per_capita": 39038.2418370853,
+        "gdp_growth": -4.11394933103749
+      },
+      {
+        "country": "United Kingdom",
+        "country_code": "GBR",
+        "year": 2010,
+        "gdp_per_capita": 39536.7726806835,
+        "gdp_growth": 2.07405095275128
+      },
+      {
+        "country": "United Kingdom",
+        "country_code": "GBR",
+        "year": 2011,
+        "gdp_per_capita": 39729.4420093844,
+        "gdp_growth": 1.2757084113606
+      },
+      {
+        "country": "United Kingdom",
+        "country_code": "GBR",
+        "year": 2012,
+        "gdp_per_capita": 40018.49081534,
+        "gdp_growth": 1.43039602864351
+      },
+      {
+        "country": "United Kingdom",
+        "country_code": "GBR",
+        "year": 2013,
+        "gdp_per_capita": 40620.3762057909,
+        "gdp_growth": 2.18611335241982
+      },
+      {
+        "country": "United Kingdom",
+        "country_code": "GBR",
+        "year": 2014,
+        "gdp_per_capita": 41476.6392840052,
+        "gdp_growth": 2.86272867067392
+      },
+      {
+        "country": "United Kingdom",
+        "country_code": "GBR",
+        "year": 2015,
+        "gdp_per_capita": 42121.6768246256,
+        "gdp_growth": 2.36306951065066
+      },
+      {
+        "country": "United Kingdom",
+        "country_code": "GBR",
+        "year": 2016,
+        "gdp_per_capita": 42523.6742533226,
+        "gdp_growth": 1.72238590444775
+      },
+      {
+        "country": "United Kingdom",
+        "country_code": "GBR",
+        "year": 2017,
+        "gdp_per_capita": 42970.7912774294,
+        "gdp_growth": 1.74030944299099
+      },
+      {
+        "country": "United Kingdom",
+        "country_code": "GBR",
+        "year": 2018,
+        "gdp_per_capita": 43246.2025371723,
+        "gdp_growth": 1.25259061284513
+      },
+      {
+        "country": "United Kingdom",
+        "country_code": "GBR",
+        "year": 2019,
+        "gdp_per_capita": 43592.4145178536,
+        "gdp_growth": 1.37081472248765
+      },
+      {
+        "country": "United Kingdom",
+        "country_code": "GBR",
+        "year": 2020,
+        "gdp_per_capita": 39102.8965780963,
+        "gdp_growth": -9.79024036173693
+      },
+      {
+        "country": "United States",
+        "country_code": "USA",
+        "year": 2000,
+        "gdp_per_capita": 44726.9653975544,
+        "gdp_growth": 4.12748401690885
+      },
+      {
+        "country": "United States",
+        "country_code": "USA",
+        "year": 2001,
+        "gdp_per_capita": 44728.5974736901,
+        "gdp_growth": 0.998340791805987
+      },
+      {
+        "country": "United States",
+        "country_code": "USA",
+        "year": 2002,
+        "gdp_per_capita": 45087.3672776801,
+        "gdp_growth": 1.74169525130476
+      },
+      {
+        "country": "United States",
+        "country_code": "USA",
+        "year": 2003,
+        "gdp_per_capita": 45980.5145844589,
+        "gdp_growth": 2.8612107683238
+      },
+      {
+        "country": "United States",
+        "country_code": "USA",
+        "year": 2004,
+        "gdp_per_capita": 47287.5937706742,
+        "gdp_growth": 3.79889112471299
+      },
+      {
+        "country": "United States",
+        "country_code": "USA",
+        "year": 2005,
+        "gdp_per_capita": 48499.8123762241,
+        "gdp_growth": 3.5132137994521
+      },
+      {
+        "country": "United States",
+        "country_code": "USA",
+        "year": 2006,
+        "gdp_per_capita": 49405.7672967068,
+        "gdp_growth": 2.85497229363445
+      },
+      {
+        "country": "United States",
+        "country_code": "USA",
+        "year": 2007,
+        "gdp_per_capita": 49856.2814899496,
+        "gdp_growth": 1.87617145415626
+      },
+      {
+        "country": "United States",
+        "country_code": "USA",
+        "year": 2008,
+        "gdp_per_capita": 49319.4788648605,
+        "gdp_growth": -0.136579803249504
+      },
+      {
+        "country": "United States",
+        "country_code": "USA",
+        "year": 2009,
+        "gdp_per_capita": 47648.8132496326,
+        "gdp_growth": -2.53675706714202
+      },
+      {
+        "country": "United States",
+        "country_code": "USA",
+        "year": 2010,
+        "gdp_per_capita": 48466.6576026922,
+        "gdp_growth": 2.5637665603995
+      },
+      {
+        "country": "United States",
+        "country_code": "USA",
+        "year": 2011,
+        "gdp_per_capita": 48861.8804652706,
+        "gdp_growth": 1.55083550470843
+      },
+      {
+        "country": "United States",
+        "country_code": "USA",
+        "year": 2012,
+        "gdp_per_capita": 49595.8777235423,
+        "gdp_growth": 2.24954585238848
+      },
+      {
+        "country": "United States",
+        "country_code": "USA",
+        "year": 2013,
+        "gdp_per_capita": 50160.7234896692,
+        "gdp_growth": 1.84208107064158
+      },
+      {
+        "country": "United States",
+        "country_code": "USA",
+        "year": 2014,
+        "gdp_per_capita": 51051.9981368844,
+        "gdp_growth": 2.52597344637341
+      },
+      {
+        "country": "United States",
+        "country_code": "USA",
+        "year": 2015,
+        "gdp_per_capita": 52236.1193456172,
+        "gdp_growth": 3.0755146497898
+      },
+      {
+        "country": "United States",
+        "country_code": "USA",
+        "year": 2016,
+        "gdp_per_capita": 52746.4728559824,
+        "gdp_growth": 1.71142677366849
+      },
+      {
+        "country": "United States",
+        "country_code": "USA",
+        "year": 2017,
+        "gdp_per_capita": 53636.4753834132,
+        "gdp_growth": 2.33267939548638
+      },
+      {
+        "country": "United States",
+        "country_code": "USA",
+        "year": 2018,
+        "gdp_per_capita": 54953.6151523978,
+        "gdp_growth": 2.99646435222829
+      },
+      {
+        "country": "United States",
+        "country_code": "USA",
+        "year": 2019,
+        "gdp_per_capita": 55886.1842105832,
+        "gdp_growth": 2.16117651518969
+      },
+      {
+        "country": "United States",
+        "country_code": "USA",
+        "year": 2020,
+        "gdp_per_capita": 53748.9714326683,
+        "gdp_growth": -3.4861395571143
+      }
+    ]
+  },
+  "params": [
+    {
+      "name": "countryFilter",
+      "value": "All",
+      "bind": {
+        "input": "select",
+        "options": [
+          "All",
+          "Brazil",
+          "China",
+          "France",
+          "Germany",
+          "India",
+          "Japan",
+          "Nigeria",
+          "South Africa",
+          "United Kingdom",
+          "United States"
+        ],
+        "name": "Country: "
+      }
+    },
+    {
+      "name": "metricFilter",
+      "value": "gdp_per_capita",
+      "bind": {
+        "input": "radio",
+        "options": [
+          "gdp_per_capita",
+          "gdp_growth"
+        ],
+        "labels": [
+          "GDP per capita",
+          "GDP growth rate"
+        ],
+        "name": "Metric: "
+      }
+    },
+    {
+      "name": "yearFilter",
+      "value": 2020,
+      "bind": {
+        "input": "range",
+        "min": 2000,
+        "max": 2020,
+        "step": 1,
+        "name": "Year: "
+      }
+    }
+  ],
+  "vconcat": [
+    {
+      "title": "Long-term trend with event annotations",
+      "height": 340,
+      "transform": [
+        {
+          "filter": "countryFilter == 'All' || datum.country == countryFilter"
+        },
+        {
+          "calculate": "metricFilter == 'gdp_per_capita' ? datum.gdp_per_capita : datum.gdp_growth",
+          "as": "metricValue"
+        }
+      ],
+      "layer": [
+        {
+          "mark": {
+            "type": "line",
+            "point": true
+          },
+          "encoding": {
+            "x": {
+              "field": "year",
+              "type": "quantitative",
+              "title": "Year"
+            },
+            "y": {
+              "field": "metricValue",
+              "type": "quantitative",
+              "title": "Selected metric"
+            },
+            "color": {
+              "field": "country",
+              "type": "nominal",
+              "title": "Country"
+            },
+            "tooltip": [
+              {
+                "field": "country",
+                "type": "nominal",
+                "title": "Country"
+              },
+              {
+                "field": "year",
+                "type": "quantitative",
+                "title": "Year"
+              },
+              {
+                "field": "gdp_per_capita",
+                "type": "quantitative",
+                "title": "GDP per capita",
+                "format": ",.0f"
+              },
+              {
+                "field": "gdp_growth",
+                "type": "quantitative",
+                "title": "GDP growth (%)",
+                "format": ".2f"
+              }
+            ]
+          }
+        },
+        {
+          "mark": {
+            "type": "rule",
+            "color": "#7f8c8d",
+            "strokeDash": [
+              5,
+              5
+            ]
+          },
+          "encoding": {
+            "x": {
+              "datum": 2008
+            }
+          }
+        },
+        {
+          "mark": {
+            "type": "rule",
+            "color": "#d93025",
+            "strokeDash": [
+              5,
+              5
+            ]
+          },
+          "encoding": {
+            "x": {
+              "datum": 2020
+            }
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "dx": 5,
+            "dy": -8,
+            "fontSize": 11,
+            "color": "#7f8c8d"
+          },
+          "encoding": {
+            "x": {
+              "datum": 2008
+            },
+            "y": {
+              "value": 0
+            },
+            "text": {
+              "value": "2008 financial crisis"
+            }
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "dx": 5,
+            "dy": -22,
+            "fontSize": 11,
+            "color": "#d93025"
+          },
+          "encoding": {
+            "x": {
+              "datum": 2020
+            },
+            "y": {
+              "value": 0
+            },
+            "text": {
+              "value": "2020 pandemic"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "title": "Selected year: GDP per capita vs. GDP growth (click or hover a country)",
+      "height": 340,
+      "params": [
+        {
+          "name": "countryPick",
+          "select": {
+            "type": "point",
+            "fields": [
+              "country"
+            ],
+            "toggle": true
+          }
+        },
+        {
+          "name": "countryHover",
+          "select": {
+            "type": "point",
+            "fields": [
+              "country"
+            ],
+            "on": "mouseover",
+            "clear": "mouseout"
+          }
+        }
+      ],
+      "transform": [
+        {
+          "filter": "datum.year == yearFilter && datum.gdp_per_capita != null && datum.gdp_growth != null"
+        }
+      ],
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 150
+      },
+      "encoding": {
+        "x": {
+          "field": "gdp_per_capita",
+          "type": "quantitative",
+          "title": "GDP per capita (constant 2010 USD)"
+        },
+        "y": {
+          "field": "gdp_growth",
+          "type": "quantitative",
+          "title": "GDP growth (%)"
+        },
+        "color": {
+          "field": "country",
+          "type": "nominal",
+          "title": "Country"
+        },
+        "opacity": {
+          "condition": [
+            {
+              "param": "countryPick",
+              "value": 1
+            },
+            {
+              "param": "countryHover",
+              "value": 1
+            }
+          ],
+          "value": 0.25
+        },
+        "tooltip": [
+          {
+            "field": "country",
+            "type": "nominal",
+            "title": "Country"
+          },
+          {
+            "field": "year",
+            "type": "quantitative",
+            "title": "Year"
+          },
+          {
+            "field": "gdp_per_capita",
+            "type": "quantitative",
+            "title": "GDP per capita",
+            "format": ",.0f"
+          },
+          {
+            "field": "gdp_growth",
+            "type": "quantitative",
+            "title": "GDP growth (%)",
+            "format": ".2f"
+          }
+        ]
+      }
+    },
+    {
+      "title": "GDP growth ranking for the selected year",
+      "height": 260,
+      "transform": [
+        {
+          "filter": "datum.year == yearFilter && datum.gdp_growth != null"
+        }
+      ],
+      "mark": {
+        "type": "bar"
+      },
+      "encoding": {
+        "y": {
+          "field": "country",
+          "type": "nominal",
+          "sort": "-x",
+          "title": null
+        },
+        "x": {
+          "field": "gdp_growth",
+          "type": "quantitative",
+          "title": "GDP growth (%)"
+        },
+        "color": {
+          "field": "country",
+          "type": "nominal",
+          "title": "Country"
+        },
+        "tooltip": [
+          {
+            "field": "country",
+            "type": "nominal",
+            "title": "Country"
+          },
+          {
+            "field": "year",
+            "type": "quantitative",
+            "title": "Year"
+          },
+          {
+            "field": "gdp_per_capita",
+            "type": "quantitative",
+            "title": "GDP per capita",
+            "format": ",.0f"
+          },
+          {
+            "field": "gdp_growth",
+            "type": "quantitative",
+            "title": "GDP growth (%)",
+            "format": ".2f"
+          }
+        ]
+      }
+    }
+  ],
+  "config": {
+    "axis": {
+      "labelFontSize": 12,
+      "titleFontSize": 13
+    },
+    "title": {
+      "anchor": "start",
+      "fontSize": 18
+    },
+    "concat": {
+      "spacing": 28
+    }
+  }
+}
