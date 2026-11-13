@@ -1,0 +1,844 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>世界银行经济增长互动仪表板</title>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  <style>
+    :root { --ink:#172b4d; --muted:#64748b; --line:#dbe4ef; --blue:#2563eb; --accent:#f97316; --bg:#f4f7fb; --violet:#7c3aed; }
+    * { box-sizing:border-box; }
+    body { margin:0; color:var(--ink); background:radial-gradient(circle at 8% 0%,rgba(191,219,254,.55),transparent 30%),radial-gradient(circle at 92% 18%,rgba(221,214,254,.48),transparent 28%),linear-gradient(135deg,#f8fbff 0%,#f3f6fb 52%,#f8f5ff 100%); font-family:Arial,"Microsoft YaHei",sans-serif; }
+    main { max-width:1280px; margin:auto; padding:34px 28px 72px; }
+    .hero { position:relative; margin-bottom:26px; padding:34px 38px 32px; overflow:hidden; border:1px solid rgba(191,219,254,.85); border-radius:26px; background:linear-gradient(120deg,rgba(255,255,255,.94),rgba(239,246,255,.83) 58%,rgba(245,243,255,.9)); box-shadow:0 18px 44px rgba(37,99,235,.10); }
+    .hero::after { content:""; position:absolute; width:230px; height:230px; right:-64px; top:-88px; border-radius:50%; background:radial-gradient(circle,rgba(124,58,237,.18),rgba(124,58,237,0) 68%); pointer-events:none; }
+    .eyebrow { margin:0 0 12px; color:var(--blue); font-size:13px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
+    h1 { margin:0 0 10px; font-size:clamp(28px,4vw,48px); letter-spacing:-.04em; background:linear-gradient(110deg,#172b4d,#2563eb 60%,#7c3aed); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    h2 { margin:0 0 14px; font-size:24px; letter-spacing:-.02em; }
+    p { line-height:1.7; }
+    .subtitle { color:var(--muted); max-width:900px; margin:0; font-size:16px; }
+    .hero-meta { position:relative; z-index:1; display:flex; flex-wrap:wrap; gap:9px; margin-top:20px; }
+    .badge { display:inline-flex; align-items:center; gap:6px; padding:7px 11px; border:1px solid #dbeafe; border-radius:999px; background:rgba(255,255,255,.72); color:#334155; font-size:13px; font-weight:700; }
+    .badge::before { content:""; width:7px; height:7px; border-radius:50%; background:#22c55e; box-shadow:0 0 0 3px rgba(34,197,94,.12); }
+    .controls, .ai-panel, .chart-card, .kpi { background:rgba(255,255,255,.9); border:1px solid rgba(219,228,239,.9); border-radius:18px; box-shadow:0 10px 28px rgba(23,43,77,.06); }
+    .controls { backdrop-filter:blur(8px); }
+    .research-card { margin:22px 0; padding:20px 24px; border:1px solid #bfdbfe; border-left:4px solid #2563eb; border-radius:16px; background:rgba(239,246,255,.78); box-shadow:0 8px 22px rgba(37,99,235,.08); }
+    .research-card h2 { margin-bottom:10px; }
+    .research-card p { margin:6px 0; }
+    .research-card ol { margin:8px 0 0 20px; padding:0; color:var(--muted); line-height:1.8; }
+    .controls { display:flex; flex-wrap:wrap; gap:18px 28px; align-items:end; padding:22px 24px; margin:28px 0; border-top:4px solid var(--accent); position:relative; }
+    .controls::before { content:"交互控制台"; position:absolute; top:-14px; left:18px; padding:3px 10px; border:1px solid #fed7aa; border-radius:999px; background:#fff7ed; color:#c2410c; font-size:12px; font-weight:800; }
+    .controls.is-demo { border-color:#c4b5fd; box-shadow:0 12px 30px rgba(124,58,237,.14); }
+    .controls.is-demo::before { border-color:#c4b5fd; background:#f5f3ff; color:#6d28d9; content:"演示进行中"; }
+    label { display:flex; flex-direction:column; gap:7px; color:var(--ink); font-weight:700; }
+    select, input[type="range"], input[type="password"], input[type="text"], button { font:inherit; }
+    select, input[type="password"], input[type="text"], textarea { min-width:190px; border:1px solid #b8c5d6; border-radius:10px; padding:9px 11px; background:#fbfdff; transition:border-color .2s,box-shadow .2s,background .2s; }
+    select:focus, input:focus, textarea:focus { outline:none; border-color:#60a5fa; background:#fff; box-shadow:0 0 0 3px rgba(96,165,250,.18); }
+    input[type="range"] { width:260px; accent-color:var(--accent); }
+    button { border:0; border-radius:10px; padding:10px 16px; color:white; background:linear-gradient(135deg,#2563eb,#1d4ed8); cursor:pointer; font-weight:700; transition:transform .18s,box-shadow .18s,background .18s; }
+    button:hover { transform:translateY(-1px); box-shadow:0 5px 12px rgba(37,99,235,.2); }
+    button:active { transform:translateY(0); }
+    button.is-active { background:linear-gradient(135deg,#7c3aed,#5b21b6); box-shadow:0 0 0 3px rgba(124,58,237,.18),0 7px 16px rgba(124,58,237,.24); }
+    .demo-status { display:inline-flex; align-items:center; gap:8px; min-height:38px; padding:8px 13px; border:1px solid #ddd6fe; border-radius:999px; background:#faf5ff; color:#6d28d9; font-size:13px; font-weight:700; }
+    .demo-status::before { content:""; width:8px; height:8px; border-radius:50%; background:#a78bfa; }
+    .demo-status.running::before { background:#7c3aed; box-shadow:0 0 0 4px rgba(124,58,237,.14); }
+    body.demo-mode .chart-card { border-color:#c4b5fd; box-shadow:0 12px 30px rgba(124,58,237,.10); }
+    body.demo-mode .chart-card h2 { color:#312e81; }
+    body.demo-mode .finding-grid div { background:#fbfaff; }
+    button.secondary { background:#475569; }
+    .kpis { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-bottom:22px; }
+    .kpi { position:relative; padding:18px 20px; border-top:3px solid var(--blue); background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(248,250,252,.9)); overflow:hidden; }
+    .kpi::after { content:""; position:absolute; right:-20px; bottom:-32px; width:82px; height:82px; border-radius:50%; background:rgba(37,99,235,.06); }
+    .kpi small { color:var(--muted); display:block; margin-bottom:8px; }
+    .kpi strong { font-size:22px; }
+    .chart-card { padding:25px 27px 21px; margin:22px 0; overflow:hidden; transition:transform .2s,box-shadow .2s,border-color .2s; }
+    .chart-card:hover { transform:translateY(-2px); }
+    .chart-card:hover { border-color:#c7d7ea; box-shadow:0 14px 32px rgba(23,43,77,.09); }
+    .filter-summary { margin:0 0 22px; padding:11px 14px; border-left:4px solid var(--blue); border-radius:8px; background:rgba(255,255,255,.72); color:var(--muted); }
+    .inline-control { display:inline-flex; flex-direction:row; align-items:center; gap:8px; margin-bottom:10px; }
+    .export-card { border-top:4px solid #0ea5e9; }
+    .export-card button { margin:4px 6px 0 0; }
+    .findings { border-top:4px solid #16a34a; }
+    .analysis-card { border-top:4px solid #f59e0b; }
+    .finding-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    .finding-grid div { padding:14px; border:1px solid #dbe4ef; border-radius:12px; background:#f8fafc; }
+    .finding-grid strong, .finding-grid span { display:block; }
+    .finding-grid strong { margin-bottom:6px; color:#166534; }
+    .finding-grid span { color:var(--muted); line-height:1.6; }
+    .data-notes { border-top:4px solid #64748b; }
+    details { margin-top:12px; color:var(--muted); }
+    summary { cursor:pointer; color:var(--ink); font-weight:700; }
+    .data-dictionary { margin:10px 0 0 20px; line-height:1.8; }
+    .chart-heading { display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; }
+    .chart-heading h2 { margin-bottom:0; }
+    .chart-heading h2::before { content:""; display:inline-block; width:7px; height:23px; margin-right:10px; vertical-align:-3px; border-radius:4px; background:linear-gradient(#2563eb,#8b5cf6); }
+    .chart-zoom { display:flex; gap:6px; }
+    .chart-zoom button { padding:6px 10px; font-size:13px; background:#e8eef7; color:var(--ink); border:1px solid #cbd5e1; }
+    .chart-zoom button:hover { background:#dbeafe; }
+    #trend, #scatter { cursor:grab; touch-action:none; overscroll-behavior:contain; }
+    #trend:active, #scatter:active { cursor:grabbing; }
+    .chart { width:100%; min-width:0; }
+    .vega-embed { width:100%; }
+    .caption { color:var(--muted); margin:12px 0 0; padding-top:10px; border-top:1px solid #edf2f7; }
+    .ai-panel { padding:30px 32px 32px; margin-top:30px; border-top:4px solid #8b5cf6; background:linear-gradient(135deg,rgba(255,255,255,.96),rgba(248,245,255,.95)); box-shadow:0 16px 36px rgba(124,58,237,.11); }
+    .ai-panel h2 { display:flex; align-items:center; gap:10px; }
+    .ai-panel h2::before { content:"✦"; display:inline-grid; place-items:center; width:32px; height:32px; border-radius:10px; color:#fff; background:linear-gradient(135deg,#7c3aed,#2563eb); font-size:18px; }
+    .ai-form { display:flex; flex-wrap:wrap; gap:14px; align-items:end; }
+    .ai-form label { flex:1 1 520px; }
+    .ai-form textarea { width:100%; min-height:74px; resize:vertical; font-size:16px; line-height:1.5; }
+    .ai-form button { min-height:46px; padding:10px 22px; background:linear-gradient(135deg,#7c3aed,#2563eb); box-shadow:0 6px 14px rgba(37,99,235,.2); }
+    .ai-result { min-height:60px; max-height:430px; overflow:auto; margin:18px 0 0; padding:18px 20px; background:linear-gradient(145deg,rgba(248,250,252,.96),rgba(245,243,255,.82)); border:1px solid #e2e8f0; border-left:4px solid #8b5cf6; border-radius:12px; white-space:pre-wrap; line-height:1.8; font-size:16px; }
+    .footnote { color:var(--muted); font-size:14px; }
+    @media (max-width:800px) { main { padding:20px 14px 44px; } .hero { padding:26px 22px; border-radius:20px; } .controls { gap:12px; padding:20px 16px; } .kpis, .finding-grid { grid-template-columns:repeat(2,1fr); } .chart-card { padding:16px 14px; } .controls label, .controls select, .controls input { max-width:100%; min-width:0; width:100%; } .controls button { width:100%; } .demo-status { width:100%; justify-content:center; } .ai-panel { padding:24px 18px; } }
+    @media (max-width:520px) { .finding-grid { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+<main>
+  <header class="hero">
+    <p class="eyebrow">HW5 · Interactive Visualization</p>
+    <h1>世界银行经济增长互动仪表板</h1>
+    <p class="subtitle">探索 2000–2020 年十个国家的人均 GDP 与 GDP 年增长率，分析经济危机期间的短期冲击是否会改变长期经济排名。</p>
+    <div class="hero-meta" aria-label="项目概览">
+      <span class="badge">2000–2020 年</span>
+      <span class="badge">十个国家</span>
+      <span class="badge">五种可视化</span>
+      <span class="badge">支持 AI 辅助解读</span>
+    </div>
+  </header>
+
+  <section class="research-card">
+    <h2>研究问题</h2>
+    <p><strong>核心问题：</strong>短期经济冲击是否会改变一个国家的长期经济排名？</p>
+    <ol>
+      <li>2008 年金融危机和 2020 年疫情期间，哪些国家受到的 GDP 增长冲击最大？</li>
+      <li>人均 GDP 较高的国家，是否一定具有较高的当年 GDP 增长率？</li>
+      <li>短期负增长是否会导致国家的人均 GDP 长期排名下降？</li>
+    </ol>
+  </section>
+
+  <section class="controls">
+    <label>国家
+      <select id="country"><option value="All">全部国家</option></select>
+    </label>
+    <label>重点国家（可多选）
+      <select id="focusCountries" multiple size="3" aria-label="重点国家（可多选）"></select>
+      <small class="footnote">按住 Ctrl（Windows）可多选</small>
+    </label>
+    <label>指标
+      <select id="metric">
+        <option value="gdp_per_capita">人均 GDP</option>
+        <option value="gdp_growth">GDP 年增长率</option>
+      </select>
+    </label>
+    <label>比较年份：<span id="yearLabel">2020</span>
+      <input id="year" type="range" min="2000" max="2020" value="2020">
+    </label>
+    <button id="playYear" type="button" aria-label="播放年份动画">播放年份</button>
+    <button id="demoMode" type="button" aria-label="播放演示模式">演示模式</button>
+    <button id="event2008" type="button" class="secondary">2008 金融危机</button>
+    <button id="event2020" type="button" class="secondary">2020 疫情</button>
+    <button id="reset" class="secondary" type="button">重置筛选</button>
+    <button id="clearFocus" class="secondary" type="button">清除重点国家</button>
+    <button id="clearAll" class="secondary" type="button">清除全部交互</button>
+    <span id="focusStatus" class="footnote">未选择重点国家</span>
+    <span id="demoStatus" class="demo-status" aria-live="polite">演示未启动</span>
+  </section>
+  <p id="filterSummary" class="filter-summary" aria-live="polite"></p>
+
+  <section class="kpis">
+    <div class="kpi"><small>当前年份</small><strong id="kpiYear">2020</strong></div>
+    <div class="kpi"><small>可用国家数</small><strong id="kpiCountries">-</strong></div>
+    <div class="kpi"><small>GDP 增长最高</small><strong id="kpiBest">-</strong></div>
+    <div class="kpi"><small>GDP 增长最低</small><strong id="kpiWorst">-</strong></div>
+    <div class="kpi"><small>当前相关系数</small><strong id="kpiCorrelation">-</strong></div>
+  </section>
+
+  <section class="chart-card findings">
+    <h2>主要发现</h2>
+    <div class="finding-grid">
+      <div><strong>短期冲击</strong><span id="findingShock">正在计算……</span></div>
+      <div><strong>长期水平</strong><span id="findingLevel">正在计算……</span></div>
+      <div><strong>排名变化</strong><span id="findingRank">正在计算……</span></div>
+    </div>
+  </section>
+
+  <section class="chart-card analysis-card">
+    <h2>深入分析</h2>
+    <div class="finding-grid">
+      <div><strong>增长稳定性</strong><span id="stabilityInsight">正在计算……</span></div>
+      <div><strong>2008 年冲击</strong><span id="crisisInsight">正在计算……</span></div>
+      <div><strong>危机后变化</strong><span id="recoveryInsight">正在计算……</span></div>
+    </div>
+    <p class="footnote">“恢复”仅比较数据中可用的 2009–2010 年；数据截止 2020 年，因此不推断 2021 年之后的恢复情况。</p>
+  </section>
+
+  <section class="chart-card">
+    <div class="chart-heading">
+      <h2 id="trendTitle">长期趋势</h2>
+      <div class="chart-zoom" aria-label="趋势图缩放控制">
+        <button type="button" data-chart="trend" data-zoom="in">放大</button>
+        <button type="button" data-chart="trend" data-zoom="out">缩小</button>
+        <button type="button" data-chart="trend" data-zoom="reset">重置视图</button>
+      </div>
+    </div>
+    <div id="trend" class="chart" role="img" aria-label="长期 GDP 趋势图"></div>
+    <p class="caption">每个国家每年都有一个数据点；灰色与红色虚线标记重大事件，橙色信标会随滑块移动。放大后可直接拖动图表平移。</p>
+  </section>
+
+  <section class="chart-card data-notes">
+    <h2>数据与方法说明</h2>
+    <p>数据来自 World Bank Indicators，覆盖 2000–2020 年十个国家。人均 GDP 使用不变价美元（价格基准：2010 年），GDP 增长率表示年度百分比变化。这里的 2010 年是价格换算基准，不是当前比较年份。缺失值保持为空，不进行虚构补值；日本缺少 2020 年数据，因此相关比较只使用有数据的国家。图表用于描述趋势与比较，不能单独证明经济变量之间存在因果关系。</p>
+    <details>
+      <summary>数据字典与计算方法</summary>
+      <ul class="data-dictionary">
+        <li><code>country</code>：国家名称。</li>
+        <li><code>year</code>：观测年份，范围为 2000–2020。</li>
+        <li><code>gdp_per_capita</code>：人均 GDP，单位为不变价美元。</li>
+        <li><code>gdp_growth</code>：GDP 年增长率，单位为百分比。</li>
+        <li>相关系数使用当前年份同时拥有两项指标的数据计算 Pearson r。</li>
+        <li>增长稳定性使用 2000–2020 年 GDP 增长率的总体标准差。</li>
+      </ul>
+    </details>
+  </section>
+
+  <section class="chart-card">
+    <div class="chart-heading">
+      <h2 id="scatterTitle">国家比较</h2>
+      <div class="chart-zoom" aria-label="散点图缩放控制">
+        <button type="button" data-chart="scatter" data-zoom="in">放大</button>
+        <button type="button" data-chart="scatter" data-zoom="out">缩小</button>
+        <button type="button" data-chart="scatter" data-zoom="reset">重置视图</button>
+      </div>
+    </div>
+    <div id="scatter" class="chart" role="img" aria-label="人均 GDP 与 GDP 增长率散点图"></div>
+    <p class="caption">使用右上角按钮缩放；放大后可直接拖动图表平移，拖拽选择区域可突出显示国家，悬停数据点可查看数值。</p>
+  </section>
+
+  <section class="chart-card export-card">
+    <h2>导出当前结果</h2>
+    <p class="footnote">可以下载当前筛选条件下的数据和图表，用于报告或演示。</p>
+    <button id="downloadCsv" type="button">下载 CSV 数据</button>
+    <button id="downloadTrend" type="button" class="secondary">下载趋势图 PNG</button>
+    <button id="downloadScatter" type="button" class="secondary">下载散点图 PNG</button>
+  </section>
+
+  <section class="chart-card">
+    <h2 id="rankingTitle">国家增长率排名</h2>
+    <div id="ranking" class="chart" role="img" aria-label="各国 GDP 增长率排名图"></div>
+  </section>
+
+  <section class="chart-card">
+    <h2 id="heatmapTitle">危机冲击：哪些国家在危机年份受到影响？</h2>
+    <label class="inline-control">热图排序
+      <select id="heatmapSort" aria-label="热图排序">
+        <option value="name">按国家名称</option>
+        <option value="growth">按增长率</option>
+      </select>
+    </label>
+    <div id="heatmap" class="chart" role="img" aria-label="各国 GDP 增长率热图"></div>
+    <p class="caption">热图用颜色表示 GDP 年增长率：绿色代表增长，红色代表衰退。选择重点国家后，当前年份只会为这些国家显示灰色边框。</p>
+  </section>
+
+  <section class="chart-card">
+    <h2 id="rankChangeTitle">长期排名变化：各国 GDP 排名是否改变？</h2>
+    <div id="rankChange" class="chart" role="img" aria-label="人均 GDP 排名变化图"></div>
+    <p class="caption">这张图比较 2000、当前滑块年份与 2020；排名数字越小代表人均 GDP 排名越高，线条上下移动就是排名变化。</p>
+  </section>
+
+  <section class="ai-panel">
+    <h2>AI 辅助解读</h2>
+    <p class="footnote">问题会发送到本地后端，由 DeepSeek 根据当前仪表板数据进行分析；精确排名和统计值由程序计算。</p>
+    <div class="ai-form">
+      <label>你的问题
+        <textarea id="question" placeholder="例如：2020 年哪个国家的 GDP 增长受到的冲击最大？"></textarea>
+      </label>
+      <button id="summarize">询问 AI</button>
+    </div>
+    <div id="aiResult" class="ai-result">点击“询问 AI”开始分析当前选中的数据。</div>
+  </section>
+
+  <p class="footnote">数据来源：World Bank Indicators。日本缺少 2020 年数据，因此相关比较只使用有数据的国家。</p>
+</main>
+<script>
+  const state = { rows: [], country: "All", focusCountries: [], metric: "gdp_per_capita", year: 2020, heatmapSort:"name", chartZoom: {trend:1, scatter:1}, chartPan: {trend:{x:0,y:0}, scatter:{x:0,y:0}} };
+  const chartViews = {};
+  let playTimer = null;
+  let demoTimer = null;
+  const colors = { "2008":"#64748b", "2020":"#dc2626" };
+
+  function parseCsv(text) {
+    const lines = text.trim().split(/\r?\n/);
+    const headers = lines.shift().split(",");
+    return lines.map(line => {
+      const values = line.split(",");
+      const row = Object.fromEntries(headers.map((h, i) => [h, values[i]]));
+      return {
+        ...row,
+        year: Number(row.year),
+        gdp_per_capita: row.gdp_per_capita ? Number(row.gdp_per_capita) : null,
+        gdp_growth: row.gdp_growth ? Number(row.gdp_growth) : null
+      };
+    });
+  }
+
+  function filteredRows() {
+    return state.rows.filter(row => state.country === "All" || row.country === state.country);
+  }
+
+  function tooltip() {
+    return [
+      { field:"country", type:"nominal", title:"国家" },
+      { field:"year", type:"quantitative", title:"年份" },
+      { field:"gdp_per_capita", type:"quantitative", title:"人均 GDP", format:",.0f" },
+      { field:"gdp_growth", type:"quantitative", title:"GDP 年增长率", format:".2f" }
+    ];
+  }
+
+  function zoomDomain(domain, level) {
+    if (level === 1) return domain;
+    const center = (domain[0] + domain[1]) / 2;
+    const halfRange = (domain[1] - domain[0]) / (2 * level);
+    return [center - halfRange, center + halfRange];
+  }
+
+  function shiftDomain(domain, pan) {
+    return [domain[0] + pan, domain[1] + pan];
+  }
+
+  function boundedPan(baseDomain, level, pan) {
+    const maxShift = (baseDomain[1] - baseDomain[0]) * (1 - 1 / level) / 2;
+    return Math.max(-maxShift, Math.min(maxShift, pan));
+  }
+
+  function focusExpression() {
+    return state.focusCountries.length ? `indexof(${JSON.stringify(state.focusCountries)}, datum.country) >= 0` : "true";
+  }
+
+  function syncFocusSelect() {
+    const select = document.getElementById("focusCountries");
+    if (!select) return;
+    [...select.options].forEach(option => {
+      option.selected = state.focusCountries.includes(option.value);
+    });
+  }
+
+  function render() {
+    const allRows = filteredRows();
+    const yearRows = allRows.filter(row => row.year === state.year);
+    const data = { values: allRows };
+    const yearData = { values: yearRows };
+    const countryScale = {
+      domain:["Brazil","China","France","Germany","India","Japan","Nigeria","South Africa","United Kingdom","United States"],
+      range:["#4e79a7","#f28e2b","#e15759","#76b7b2","#59a14f","#edc949","#af7aa1","#ff9da7","#9c755f","#bab0ab"]
+    };
+    const metricTitle = state.metric === "gdp_per_capita" ? "人均 GDP" : "GDP 年增长率";
+    const metricName = state.metric === "gdp_per_capita" ? "人均 GDP" : "GDP 年增长率";
+    const trendValues = allRows.map(row => row[state.metric]).filter(value => Number.isFinite(value));
+    const trendYBase = state.metric === "gdp_per_capita"
+      ? [0, 60000]
+      : [Math.min(...trendValues, -10) - 1, Math.max(...trendValues, 10) + 1];
+    const scatterRows = yearRows.filter(row => row.gdp_per_capita != null && row.gdp_growth != null);
+    const scatterXMax = Math.max(...scatterRows.map(row => row.gdp_per_capita), 50000) * 1.05;
+    const scatterYValues = scatterRows.map(row => row.gdp_growth);
+    const scatterYBase = [Math.min(...scatterYValues, -10) - 1, Math.max(...scatterYValues, 10) + 1];
+    state.chartPan.trend.x = boundedPan([2000,2020], state.chartZoom.trend, state.chartPan.trend.x);
+    state.chartPan.trend.y = boundedPan(trendYBase, state.chartZoom.trend, state.chartPan.trend.y);
+    state.chartPan.scatter.x = boundedPan([0,scatterXMax], state.chartZoom.scatter, state.chartPan.scatter.x);
+    state.chartPan.scatter.y = boundedPan(scatterYBase, state.chartZoom.scatter, state.chartPan.scatter.y);
+    const heatmapHighlightTest = state.focusCountries.length
+      ? `datum.selectedYear == 1 && (${focusExpression()})`
+      : "datum.selectedYear == 1";
+    document.getElementById("trendTitle").textContent = `长期趋势：${metricName}（2000–2020）`;
+    document.getElementById("scatterTitle").textContent = `${state.year} 年：GDP 水平与增长速度比较`;
+    document.getElementById("rankingTitle").textContent = `${state.year} 年：各国 GDP 增长率排名`;
+    document.getElementById("heatmapTitle").textContent = `危机冲击：哪些国家在 ${state.year} 年受到影响？`;
+    document.getElementById("rankChangeTitle").textContent = `长期排名变化：人均 GDP 排名到 ${state.year} 年如何变化？`;
+    document.getElementById("focusStatus").textContent = state.focusCountries.length ? `当前重点：${state.focusCountries.join("、")}` : "未选择重点国家";
+    const missing = yearRows.filter(row => row.gdp_per_capita == null || row.gdp_growth == null).map(row => row.country);
+    document.getElementById("filterSummary").textContent = `当前显示：${state.year} 年｜指标：${metricName}｜重点国家：${state.focusCountries.length ? state.focusCountries.join("、") : "未选择"}${missing.length ? `｜缺失数据：${missing.join("、")}` : ""}`;
+    document.getElementById("kpiCorrelation").textContent = correlation(yearRows);
+    updateAnalysis();
+    ["trend", "scatter", "ranking", "heatmap", "rankChange"].forEach(id => {
+      document.getElementById(id).replaceChildren();
+    });
+    const trend = {
+      $schema:"https://vega.github.io/schema/vega-lite/v5.json", width:"container", height:560, autosize:{type:"fit",contains:"padding"}, data,
+      transform:[
+        { calculate:`datum.${state.metric}`, as:"selectedMetric" },
+        { calculate:`${focusExpression()} ? 1 : 0.18`, as:"focusOpacity" }
+      ],
+      layer:[
+        {
+          mark:{type:"rule",clip:true,color:"#fb923c",strokeWidth:4,opacity:0.07},
+          encoding:{x:{datum:state.year}}
+        },
+        {
+          mark:{ type:"line", clip:true, strokeWidth:1.6, opacity:0.78, point:{filled:true,size:24,opacity:0.9,stroke:"white",strokeWidth:0.7} },
+          encoding:{
+            x:{ field:"year", type:"quantitative", title:"年份", scale:{domain:shiftDomain(zoomDomain([2000,2020],state.chartZoom.trend),state.chartPan.trend.x),nice:false,zero:false}, axis:{values:Array.from({length:21},(_,i)=>2000+i),labelAngle:-45,labelFontSize:10,labelOverlap:false} },
+            y:{ field:"selectedMetric", type:"quantitative", title:metricTitle, scale:{domain:shiftDomain(zoomDomain(trendYBase,state.chartZoom.trend),state.chartPan.trend.y),nice:false,zero:false}, axis:state.metric === "gdp_per_capita" ? {values:Array.from({length:13},(_,i)=>i*5000),labelFontSize:10,labelOverlap:false,grid:true} : undefined },
+            color:{ field:"country", type:"nominal", title:"国家", scale:countryScale },
+            opacity:{field:"focusOpacity",type:"quantitative",scale:null},
+            tooltip:tooltip()
+          }
+        },
+        { mark:{type:"rule",clip:true,color:colors["2008"],strokeDash:[6,5]}, encoding:{x:{datum:2008}} },
+        { mark:{type:"rule",clip:true,color:colors["2020"],strokeDash:[6,5]}, encoding:{x:{datum:2020}} },
+        {
+          mark:{type:"rule",clip:true,color:"#ea580c",strokeWidth:1.5,strokeDash:[3,5]},
+          encoding:{x:{datum:state.year}}
+        },
+        {
+          mark:{type:"point",clip:true,shape:"diamond",filled:true,size:75,color:"#ea580c",stroke:"white",strokeWidth:1.5},
+          encoding:{
+            x:{datum:state.year},
+            y:{aggregate:"max",field:"selectedMetric"}
+          }
+        },
+        {
+          mark:{type:"text",clip:true,color:"#9a3412",fontSize:12,fontWeight:"bold",align:"right",dx:-10,dy:-18},
+          encoding:{
+            x:{datum:state.year},
+            y:{aggregate:"max",field:"selectedMetric"},
+            text:{value:`◆ ${state.year}`}
+          }
+        }
+      ]
+    };
+    const scatter = {
+      $schema:"https://vega.github.io/schema/vega-lite/v5.json", width:"container", height:390, autosize:{type:"fit",contains:"padding"}, data:yearData,
+      transform:[
+        {filter:"datum.gdp_per_capita != null && datum.gdp_growth != null"},
+        {calculate:`${focusExpression()} ? 1 : 0.18`,as:"focusOpacity"}
+      ],
+      params:[
+        {name:"brush",select:{type:"interval"}},
+        {name:"zoom",select:{type:"interval",encodings:["x","y"],bind:"scales"}},
+        {name:"hover",select:{type:"point",on:"mouseover",clear:"mouseout",fields:["country"]}}
+      ],
+      mark:{type:"point",clip:true,filled:true,size:180},
+      encoding:{
+        x:{field:"gdp_per_capita",type:"quantitative",title:"人均 GDP（不变价美元）",scale:{domain:shiftDomain(zoomDomain([0,scatterXMax],state.chartZoom.scatter),state.chartPan.scatter.x)}},
+        y:{field:"gdp_growth",type:"quantitative",title:"GDP 年增长率（%）",scale:{domain:shiftDomain(zoomDomain(scatterYBase,state.chartZoom.scatter),state.chartPan.scatter.y)}},
+        color:{field:"country",type:"nominal",title:"国家",scale:countryScale},
+        opacity:{field:"focusOpacity",type:"quantitative",scale:null},
+        size:{condition:{param:"hover",value:280},value:180},
+        tooltip:tooltip()
+      }
+    };
+    const ranking = {
+      $schema:"https://vega.github.io/schema/vega-lite/v5.json", width:"container", height:320, autosize:{type:"fit",contains:"padding"}, data:yearData,
+      transform:[
+        {filter:"datum.gdp_growth != null"},
+        {calculate:`${focusExpression()} ? 1 : 0.18`,as:"focusOpacity"}
+      ],
+      mark:"bar",
+      encoding:{
+        y:{field:"country",type:"nominal",sort:"-x",title:null},
+        x:{field:"gdp_growth",type:"quantitative",title:"GDP 年增长率（%）"},
+        color:{field:"country",type:"nominal",title:"国家",scale:countryScale},
+        opacity:{field:"focusOpacity",type:"quantitative",scale:null},
+        tooltip:tooltip()
+      }
+    };
+    const heatmap = {
+      $schema:"https://vega.github.io/schema/vega-lite/v5.json", width:"container", height:300, autosize:{type:"fit",contains:"padding"}, data,
+      transform:[{filter:"datum.gdp_growth != null"},{calculate:`datum.year == ${state.year} ? 1 : 0`,as:"selectedYear"},{calculate:`${focusExpression()} ? 1 : 0.22`,as:"focusOpacity"}],
+      mark:{type:"rect",cornerRadius:3},
+      encoding:{
+        x:{field:"year",type:"ordinal",title:"年份",axis:{labelAngle:0}},
+        y:{field:"country",type:"nominal",title:null,sort:state.heatmapSort === "name" ? "ascending" : {field:"gdp_growth",op:"mean",order:"descending"}},
+        color:{field:"gdp_growth",type:"quantitative",title:"GDP 年增长率（%）",scale:{scheme:"redyellowgreen",domainMid:0}},
+        opacity:{field:"focusOpacity",type:"quantitative",scale:null},
+        stroke:{condition:{test:heatmapHighlightTest,value:"#94a3b8"},value:"transparent"},
+        strokeWidth:{condition:{test:heatmapHighlightTest,value:1.5},value:0},
+        tooltip:tooltip()
+      }
+    };
+    const rankChange = {
+      $schema:"https://vega.github.io/schema/vega-lite/v5.json", width:"container", height:300, autosize:{type:"fit",contains:"padding"}, data,
+      transform:[
+        {filter:`datum.gdp_per_capita != null && (datum.year == 2000 || datum.year == ${state.year} || datum.year == 2020)`},
+        {window:[{op:"rank",as:"rank"}],sort:[{field:"gdp_per_capita",order:"descending"}],groupby:["year"]},
+        {calculate:`${focusExpression()} ? 1 : 0.18`,as:"focusOpacity"}
+      ],
+      mark:{type:"line",point:{filled:true,size:90}},
+      encoding:{
+        x:{field:"year",type:"quantitative",title:"比较年份",scale:{domain:[2000,2020],nice:false},axis:{values:[2000,2004,2008,2012,2016,2020],labelAngle:0}},
+        y:{field:"rank",type:"quantitative",title:"人均 GDP 排名",scale:{reverse:true},axis:{tickMinStep:1}},
+        color:{field:"country",type:"nominal",title:"国家",scale:countryScale},
+        opacity:{field:"focusOpacity",type:"quantitative",scale:null},
+        tooltip:[
+          {field:"country",type:"nominal",title:"国家"},
+          {field:"year",type:"ordinal",title:"年份"},
+          {field:"rank",type:"quantitative",title:"排名"},
+          {field:"gdp_per_capita",type:"quantitative",title:"人均 GDP",format:",.0f"}
+        ]
+      }
+    };
+    Promise.all([
+      vegaEmbed("#trend",trend,{actions:false}),
+      vegaEmbed("#scatter",scatter,{actions:false}),
+      vegaEmbed("#ranking",ranking,{actions:false}),
+      vegaEmbed("#heatmap",heatmap,{actions:false}),
+      vegaEmbed("#rankChange",rankChange,{actions:false})
+    ]).then(results => {
+      ["trend","scatter","ranking","heatmap","rankChange"].forEach((id, index) => { chartViews[id] = results[index].view; });
+      attachPan("trend", [2000,2020], trendYBase);
+      attachPan("scatter", [0,scatterXMax], scatterYBase);
+      attachScatterFocus(results[1]);
+    }).catch(error => { document.getElementById("aiResult").textContent = `图表错误：${error.message}`; });
+    updateKpis();
+  }
+
+  function attachPan(chart, xBase, yBase) {
+    const element = document.getElementById(chart);
+    let start = null;
+    element.onpointerdown = event => {
+      event.preventDefault();
+      event.stopPropagation();
+      start = {x:event.clientX, y:event.clientY};
+      element.setPointerCapture(event.pointerId);
+    };
+    element.onpointermove = event => {
+      if (!start) return;
+      event.preventDefault();
+      event.stopPropagation();
+    };
+    element.onpointerup = event => {
+      if (!start) return;
+      event.preventDefault();
+      event.stopPropagation();
+      const rect = element.getBoundingClientRect();
+      const xDomain = zoomDomain(xBase, state.chartZoom[chart]);
+      const yDomain = zoomDomain(yBase, state.chartZoom[chart]);
+      state.chartPan[chart].x -= (event.clientX - start.x) / rect.width * (xDomain[1] - xDomain[0]);
+      state.chartPan[chart].y += (event.clientY - start.y) / rect.height * (yDomain[1] - yDomain[0]);
+      start = null;
+      render();
+    };
+    element.onpointercancel = () => {
+      start = null;
+    };
+  }
+
+  function attachScatterFocus(embedResult) {
+    embedResult.view.addEventListener("click", (event, item) => {
+      if (item && item.datum && item.datum.country) {
+        state.focusCountries = [item.datum.country];
+        syncFocusSelect();
+        render();
+      }
+    });
+  }
+
+  function updateKpis() {
+    const rows = state.rows.filter(row => row.year === state.year && row.gdp_growth != null);
+    const best = rows.reduce((a,b) => !a || b.gdp_growth > a.gdp_growth ? b : a, null);
+    const worst = rows.reduce((a,b) => !a || b.gdp_growth < a.gdp_growth ? b : a, null);
+    document.getElementById("yearLabel").textContent = state.year;
+    document.getElementById("kpiYear").textContent = state.year;
+    document.getElementById("kpiCountries").textContent = rows.length;
+    document.getElementById("kpiBest").textContent = best ? `${best.country} (${best.gdp_growth.toFixed(2)}%)` : "-";
+    document.getElementById("kpiWorst").textContent = worst ? `${worst.country} (${worst.gdp_growth.toFixed(2)}%)` : "-";
+  }
+
+  function correlation(rows) {
+    const values = rows.filter(row => row.gdp_per_capita != null && row.gdp_growth != null);
+    if (values.length < 2) return "无数据";
+    const x = values.map(row => row.gdp_per_capita);
+    const y = values.map(row => row.gdp_growth);
+    const meanX = x.reduce((sum, value) => sum + value, 0) / x.length;
+    const meanY = y.reduce((sum, value) => sum + value, 0) / y.length;
+    const numerator = x.reduce((sum, value, index) => sum + (value - meanX) * (y[index] - meanY), 0);
+    const denominator = Math.sqrt(x.reduce((sum, value) => sum + (value - meanX) ** 2, 0) * y.reduce((sum, value) => sum + (value - meanY) ** 2, 0));
+    return denominator ? (numerator / denominator).toFixed(2) : "无变化";
+  }
+
+  function updateAnalysis() {
+    const countries = [...new Set(state.rows.map(row => row.country))];
+    const stats = countries.map(country => {
+      const values = state.rows.filter(row => row.country === country && row.gdp_growth != null).map(row => row.gdp_growth);
+      const mean = values.reduce((sum, value) => sum + value, 0) / values.length;
+      const deviation = Math.sqrt(values.reduce((sum, value) => sum + (value - mean) ** 2, 0) / values.length);
+      return {country, deviation};
+    }).sort((a, b) => a.deviation - b.deviation);
+    const shockRows = state.rows.filter(row => row.year === 2008 && row.gdp_growth != null).sort((a, b) => a.gdp_growth - b.gdp_growth);
+    const reboundCountries = countries.filter(country => {
+      const shock = state.rows.find(row => row.country === country && row.year === 2008);
+      const rebound = state.rows.find(row => row.country === country && row.year === 2009);
+      return shock && rebound && rebound.gdp_growth > shock.gdp_growth;
+    }).length;
+    document.getElementById("stabilityInsight").textContent = stats.length ? `${stats[0].country} 波动最小（标准差 ${stats[0].deviation.toFixed(2)}%），${stats[stats.length - 1].country} 波动最大。` : "暂无数据";
+    document.getElementById("crisisInsight").textContent = shockRows.length ? `2008 年冲击最大的是 ${shockRows[0].country}（${shockRows[0].gdp_growth.toFixed(2)}%）。` : "暂无数据";
+    document.getElementById("recoveryInsight").textContent = `2009 年有 ${reboundCountries} 个国家的增长率高于 2008 年；这表示短期反弹，不等同于长期恢复。`;
+    const currentRows = state.rows.filter(row => row.year === state.year && row.gdp_growth != null);
+    const negativeCount = currentRows.filter(row => row.gdp_growth < 0).length;
+    const best = currentRows.reduce((a, b) => !a || b.gdp_growth > a.gdp_growth ? b : a, null);
+    document.getElementById("findingShock").textContent = `${state.year} 年有 ${negativeCount} 个国家负增长，增长最高的是 ${best ? best.country : "暂无数据"}。`;
+    document.getElementById("findingLevel").textContent = correlation(currentRows) === "无数据" ? "当前年份数据不足，无法比较。" : `当前年份相关系数为 ${correlation(currentRows)}，人均 GDP 与增长率并非简单同步。`;
+    document.getElementById("findingRank").textContent = state.year === 2020 ? "短期负增长需要结合排名变化图判断，不能直接等同于长期排名下降。" : `当前比较年份为 ${state.year}，可与 2000 年和 2020 年排名进行对照。`;
+  }
+
+  function downloadFile(name, content, type) {
+    const url = URL.createObjectURL(new Blob([content], {type}));
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = name;
+    link.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function downloadChart(name, chart) {
+    if (!chartViews[chart]) return;
+    chartViews[chart].toImageURL("png").then(url => {
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = name;
+      link.click();
+    }).catch(error => {
+      document.getElementById("aiResult").textContent = `图表下载失败：${error.message}`;
+    });
+  }
+
+  function localSummary() {
+    const rows = state.rows.filter(row => row.year === state.year && row.gdp_growth != null);
+    if (!rows.length) return "当前年份没有可用的 GDP 增长率数据。";
+    const best = rows.reduce((a,b) => b.gdp_growth > a.gdp_growth ? b : a);
+    const worst = rows.reduce((a,b) => b.gdp_growth < a.gdp_growth ? b : a);
+    const negative = rows.filter(row => row.gdp_growth < 0).length;
+    return `${state.year} 年共有 ${rows.length} 个国家有数据。${negative} 个国家为负增长；增长最高的是 ${best.country}（${best.gdp_growth.toFixed(2)}%），最低的是 ${worst.country}（${worst.gdp_growth.toFixed(2)}%）。这表示长期人均 GDP 与当年增长率需要分开解读。`;
+  }
+
+  function cleanAnswer(text) {
+    return String(text)
+      .replace(/\*\*(.*?)\*\*/g, "$1")
+      .replace(/__(.*?)__/g, "$1")
+      .replace(/^#{1,6}\s*/gm, "")
+      .replace(/^\s*[-*]\s+/gm, "• ");
+  }
+
+  function deterministicAnswer(question) {
+    if (/你是.*deepseek|deepseek.*回答|什么模型|哪个模型/.test(question.toLowerCase())) {
+      return "是的。本页面的问题会发送到本地 Python 后端，由后端调用 DeepSeek API 生成分析；图表中的排名、统计值和数据筛选仍由本地程序根据 World Bank 数据计算。";
+    }
+    const yearMatch = question.match(/\b(20\d{2})\b/);
+    if (!yearMatch) return null;
+    const year = Number(yearMatch[1]);
+    if (year < 2000 || year > 2020) return null;
+    const rows = filteredRows().filter(row => row.year === year);
+    const asksPerCapita = /人均\s*GDP|人均国内生产总值/.test(question);
+    const asksGrowth = /增长率|GDP\s*增长/.test(question);
+    const asksHighest = /最高|最大|最高的/.test(question);
+    const asksLowest = /最低|最小|最低的/.test(question);
+    if ((!asksPerCapita && !asksGrowth) || (!asksHighest && !asksLowest)) return null;
+    const field = asksPerCapita ? "gdp_per_capita" : "gdp_growth";
+    const available = rows.filter(row => row[field] != null).sort((a, b) => b[field] - a[field]);
+    if (!available.length) return `目前没有 ${year} 年可用的相关数据。`;
+    const selected = asksLowest ? available[available.length - 1] : available[0];
+    const unit = asksPerCapita ? "不变价美元" : "%";
+    return `${year} 年${asksPerCapita ? "人均 GDP" : "GDP 年增长率"}${asksLowest ? "最低" : "最高"}的是 ${selected.country}，数值为 ${selected[field].toLocaleString("zh-CN", {maximumFractionDigits:2})}${unit}。该结果直接根据当前数据排序得出。`;
+  }
+
+  async function summarize() {
+    const result = document.getElementById("aiResult");
+    const question = document.getElementById("question").value.trim();
+    if (!question) { result.textContent = localSummary(); return; }
+    const directAnswer = deterministicAnswer(question);
+    if (directAnswer) {
+      result.textContent = directAnswer;
+      return;
+    }
+    result.textContent = "正在请求 AI 分析……";
+    const rows = state.rows.filter(row => row.year === state.year && row.gdp_growth != null);
+    const availableRows = filteredRows().filter(row => row.gdp_per_capita != null || row.gdp_growth != null);
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 25000);
+    try {
+      const response = await fetch("/api/ask", {
+        method:"POST", headers:{"Content-Type":"application/json"},
+        signal:controller.signal,
+        body:JSON.stringify({
+          question,
+          context:{
+            currentYear:state.year,
+            country:state.country,
+            metric:state.metric,
+            currentYearRows:rows,
+            availableYears:[...new Set(availableRows.map(row => row.year))].sort((a,b) => a-b),
+            rows:availableRows
+          }
+        })
+      });
+      clearTimeout(timeout);
+      const json = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(json.error || `后端 API ${response.status}`);
+      result.textContent = cleanAnswer(json.answer || "模型没有返回文字。");
+    } catch (error) {
+      clearTimeout(timeout);
+      if (error.name === "AbortError") {
+        result.textContent = cleanAnswer(`AI 请求超时，请稍后重试。\n\n${localSummary()}`);
+        return;
+      }
+      result.textContent = cleanAnswer(`LLM 请求失败：${error.message}\n\n${localSummary()}`);
+    }
+  }
+
+  fetch("data.csv")
+    .then(response => { if (!response.ok) throw new Error(`data.csv ${response.status}`); return response.text(); })
+    .then(text => {
+      state.rows = parseCsv(text);
+      [...new Set(state.rows.map(row => row.country))].sort().forEach(country => {
+        document.getElementById("country").insertAdjacentHTML("beforeend", `<option value="${country}">${country}</option>`);
+        document.getElementById("focusCountries").insertAdjacentHTML("beforeend", `<option value="${country}">${country}</option>`);
+      });
+      render();
+    })
+    .catch(error => { document.getElementById("aiResult").textContent = `数据加载失败：${error.message}。请使用本地 HTTP server 打开。`; });
+
+  document.getElementById("country").addEventListener("change", event => { state.country = event.target.value; state.focusCountries = []; syncFocusSelect(); state.chartPan = {trend:{x:0,y:0}, scatter:{x:0,y:0}}; render(); });
+  document.getElementById("focusCountries").addEventListener("change", event => {
+    state.focusCountries = [...event.target.selectedOptions].map(option => option.value);
+    render();
+  });
+  document.getElementById("metric").addEventListener("change", event => { state.metric = event.target.value; state.chartPan = {trend:{x:0,y:0}, scatter:{x:0,y:0}}; render(); });
+  document.getElementById("year").addEventListener("input", event => { state.year = Number(event.target.value); state.chartPan = {trend:{x:0,y:0}, scatter:{x:0,y:0}}; render(); });
+  document.querySelectorAll("[data-zoom]").forEach(button => button.addEventListener("click", event => {
+    const chart = event.currentTarget.dataset.chart;
+    const action = event.currentTarget.dataset.zoom;
+    if (action === "reset") {
+      state.chartZoom[chart] = 1;
+      state.chartPan[chart] = {x:0,y:0};
+    }
+    if (action === "in") state.chartZoom[chart] = Math.min(state.chartZoom[chart] * 1.4, 8);
+    if (action === "out") state.chartZoom[chart] = Math.max(state.chartZoom[chart] / 1.4, 1);
+    render();
+  }));
+  function resetAllInteractions() {
+    if (playTimer) clearInterval(playTimer);
+    if (demoTimer) clearInterval(demoTimer);
+    playTimer = null;
+    demoTimer = null;
+    document.body.classList.remove("demo-mode");
+    document.querySelector(".controls").classList.remove("is-demo");
+    document.getElementById("demoMode").classList.remove("is-active");
+    document.getElementById("demoStatus").className = "demo-status";
+    document.getElementById("demoStatus").textContent = "演示未启动";
+    state.country = "All";
+    state.focusCountries = [];
+    state.metric = "gdp_per_capita";
+    state.year = 2020;
+    state.heatmapSort = "name";
+    state.chartZoom = {trend:1, scatter:1};
+    state.chartPan = {trend:{x:0,y:0}, scatter:{x:0,y:0}};
+    document.getElementById("country").value = "All";
+    document.getElementById("metric").value = state.metric;
+    document.getElementById("year").value = state.year;
+    document.getElementById("heatmapSort").value = state.heatmapSort;
+    document.getElementById("playYear").textContent = "播放年份";
+    document.getElementById("demoMode").textContent = "演示模式";
+    document.getElementById("question").value = "";
+    document.getElementById("aiResult").textContent = "点击“询问 AI”开始分析当前选中的数据。";
+    syncFocusSelect();
+    render();
+  }
+  document.getElementById("reset").addEventListener("click", () => {
+    resetAllInteractions();
+  });
+  document.getElementById("clearAll").addEventListener("click", () => {
+    resetAllInteractions();
+  });
+  document.getElementById("clearFocus").addEventListener("click", () => { state.focusCountries = []; syncFocusSelect(); render(); });
+  document.getElementById("heatmapSort").addEventListener("change", event => { state.heatmapSort = event.target.value; render(); });
+  document.getElementById("event2008").addEventListener("click", () => {
+    state.year = 2008;
+    document.getElementById("year").value = state.year;
+    state.chartPan = {trend:{x:0,y:0}, scatter:{x:0,y:0}};
+    render();
+  });
+  document.getElementById("event2020").addEventListener("click", () => {
+    state.year = 2020;
+    document.getElementById("year").value = state.year;
+    state.chartPan = {trend:{x:0,y:0}, scatter:{x:0,y:0}};
+    render();
+  });
+  document.getElementById("playYear").addEventListener("click", event => {
+    if (playTimer) {
+      clearInterval(playTimer);
+      playTimer = null;
+      event.currentTarget.textContent = "播放年份";
+      return;
+    }
+    if (state.year >= 2020) {
+      state.year = 2000;
+      document.getElementById("year").value = state.year;
+      render();
+    }
+    event.currentTarget.textContent = "暂停播放";
+    playTimer = setInterval(() => {
+      if (state.year >= 2020) {
+        clearInterval(playTimer);
+        playTimer = null;
+        event.currentTarget.textContent = "播放年份";
+        return;
+      }
+      state.year += 1;
+      document.getElementById("year").value = state.year;
+      render();
+    }, 850);
+  });
+  document.getElementById("demoMode").addEventListener("click", event => {
+    const demoButton = event.currentTarget;
+    if (demoTimer) {
+      clearInterval(demoTimer);
+      demoTimer = null;
+      document.body.classList.remove("demo-mode");
+      document.querySelector(".controls").classList.remove("is-demo");
+      demoButton.classList.remove("is-active");
+      document.getElementById("demoStatus").className = "demo-status";
+      document.getElementById("demoStatus").textContent = "演示已暂停";
+      demoButton.textContent = "演示模式";
+      return;
+    }
+    const steps = [2000, 2008, 2020];
+    const stepLabels = {2000:"基准年份：2000", 2008:"金融危机：2008", 2020:"疫情冲击：2020"};
+    let index = 0;
+    const showStep = () => {
+      state.year = steps[index];
+      document.getElementById("year").value = state.year;
+      document.getElementById("demoStatus").textContent = `演示中 · ${stepLabels[state.year]}`;
+      render();
+      index += 1;
+      if (index >= steps.length) {
+        clearInterval(demoTimer);
+        demoTimer = null;
+        document.body.classList.remove("demo-mode");
+        document.querySelector(".controls").classList.remove("is-demo");
+        demoButton.classList.remove("is-active");
+        document.getElementById("demoStatus").className = "demo-status";
+        document.getElementById("demoStatus").textContent = "演示已完成";
+        demoButton.textContent = "演示模式";
+      }
+    };
+    document.body.classList.add("demo-mode");
+    document.querySelector(".controls").classList.add("is-demo");
+    demoButton.classList.add("is-active");
+    document.getElementById("demoStatus").className = "demo-status running";
+    demoButton.textContent = "停止演示";
+    showStep();
+    demoTimer = setInterval(showStep, 2200);
+  });
+  document.getElementById("downloadCsv").addEventListener("click", () => {
+    const headers = ["country","year","gdp_per_capita","gdp_growth"];
+    const rows = filteredRows().map(row => headers.map(header => JSON.stringify(row[header] == null ? "" : row[header])).join(","));
+    downloadFile("world-bank-filtered-data.csv", `${headers.join(",")}\n${rows.join("\n")}`, "text/csv;charset=utf-8");
+  });
+  document.getElementById("downloadTrend").addEventListener("click", () => downloadChart("gdp-trend.png", "trend"));
+  document.getElementById("downloadScatter").addEventListener("click", () => downloadChart("gdp-scatter.png", "scatter"));
+  document.getElementById("summarize").addEventListener("click", summarize);
+</script>
+</body>
+</html>
